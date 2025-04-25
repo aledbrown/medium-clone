@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -41,6 +42,11 @@ class DatabaseSeeder extends Seeder
                 'name' => $category,
             ]);
         }
+
+        User::factory()->create([
+            'name' => 'Aled Brown',
+            'email' => 'aledb@mac.com',
+        ]);
 
         Post::factory(100)->create();
     }
