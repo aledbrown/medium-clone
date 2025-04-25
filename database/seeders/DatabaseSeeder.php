@@ -12,6 +12,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
+        User::factory()->create([
+            'name' => 'Aled Brown',
+            'email' => 'aledb@mac.com',
+        ]);
+
         $categories = [
             'Technology',
             'Health',
@@ -42,11 +47,6 @@ class DatabaseSeeder extends Seeder
                 'name' => $category,
             ]);
         }
-
-        User::factory()->create([
-            'name' => 'Aled Brown',
-            'email' => 'aledb@mac.com',
-        ]);
 
         Post::factory(100)->create();
     }
