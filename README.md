@@ -18,3 +18,8 @@ https://www.freecodecamp.org/news/learn-laravel-by-building-a-medium-clone/
 > php artisan optimize:clear
 
 > php artisan optimize
+
+> php artisan make:controller PostController --resource --model=Post
+
+
+Current time: https://youtu.be/MG1kt_wiIz0?si=7d9N_puNBXpY8OPJ&t=4550
