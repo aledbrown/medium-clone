@@ -17,7 +17,7 @@ class PostController extends Controller
             ->orderBy('created_at', 'desc')
             ->simplePaginate(10);
 
-        return view('dashboard', [
+        return view('post.index', [
             'posts' => $posts,
         ]);
     }
