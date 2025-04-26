@@ -27,7 +27,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('post.create', ['categories' => $categories]);
     }
 
     /**
@@ -35,7 +36,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'image' => 'required|image|max:2048|mimes:jpg,jpeg,png',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $validated['user_id'] = auth()->id();
+
+        Post::create($validated);
+
+        return redirect()->route('post.index')->with('success', 'Post created successfully.');
     }
 
     /**
