@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -37,18 +38,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'image' => 'required|image|max:2048|mimes:jpg,jpeg,png',
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'category_id' => 'required|exists:categories,id',
+            'published_at' => 'nullable|datetime',
         ]);
 
-        $validated['user_id'] = auth()->id();
+        $data['user_id'] = auth()->id();
+        $data['slug'] = Str::slug($data['title']);
 
-        $validated['slug'] = Str::slug($validated['title']);
+        $image = $data['image'];
+        unset($data['image']);
+        $imagePath = $image->store('posts', 'public');
+        $data['image'] = $imagePath;
 
-        Post::create($validated);
+        Post::create($data);
 
         return redirect()->route('dashboard')->with('success', 'Post created successfully.');
     }
