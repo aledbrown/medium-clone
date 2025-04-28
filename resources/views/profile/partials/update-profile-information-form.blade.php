@@ -19,7 +19,7 @@
 
         @if($user->image)
             <div class="flex items-center">
-                <img src="{{ asset('storage/'.$user->image) }}" alt="Profile Photo" class="w-20 h-20 rounded-full object-cover">
+                <img src="{{ $user->imageUrl() }}" alt="Profile Photo" class="w-20 h-20 rounded-full object-cover">
             </div>
         @endif
 

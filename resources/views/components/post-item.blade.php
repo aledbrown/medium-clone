@@ -8,7 +8,10 @@
         <div class="mb-3 font-normal text-gray-700">
             {{ \Illuminate\Support\Str::words($post->content, 20) }}
         </div>
-        <a href="#" class="">
+        <a href="{{ route('post.show', [
+            'username' => $post->user->username,
+            'post' => $post->slug
+            ]) }}" class="">
             <x-primary-button>
                 Read more
                 <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

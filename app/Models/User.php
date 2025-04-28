@@ -55,4 +55,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Post::class);
     }
+
+    // methods
+    public function imageUrl(): ?string
+    {
+        if ($this->image) {
+            return asset('storage/'.$this->image);
+        }
+
+        return null;
+    }
 }

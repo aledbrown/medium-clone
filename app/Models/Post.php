@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Faker\Provider\Lorem;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends Model
 {
@@ -21,6 +21,25 @@ class Post extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    // methods
+
+    public function readTime($wordsPerMinute = 100): int
+    {
+        $wordCount = str_word_count(strip_tags($this->content));
+        $minutes = ceil($wordCount / $wordsPerMinute);
+
+        return max(1, $minutes);
+    }
+
+    public function imageUrl(): ?string
+    {
+        if ($this->image) {
+            return asset('storage/'.$this->image);
+        }
+
+        return null;
     }
 
 }
