@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -45,9 +46,11 @@ class PostController extends Controller
 
         $validated['user_id'] = auth()->id();
 
+        $validated['slug'] = Str::slug($validated['title']);
+
         Post::create($validated);
 
-        return redirect()->route('post.index')->with('success', 'Post created successfully.');
+        return redirect()->route('dashboard')->with('success', 'Post created successfully.');
     }
 
     /**
