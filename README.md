@@ -23,4 +23,4 @@ https://www.freecodecamp.org/news/learn-laravel-by-building-a-medium-clone/
 
 
 Current time:
-https://youtu.be/MG1kt_wiIz0?si=3IfAe_9_XeXOoR16&t=9235
+https://youtu.be/MG1kt_wiIz0?si=ik6ivhYb78fE4_eM&t=14077

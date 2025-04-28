@@ -9,23 +9,19 @@
                     <!-- User info -->
                     <div class="flex gap-4 items-center mt-8">
                         <!-- User image -->
-                        @if(!$post->user->image)
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            </svg>
-                        @else
-                            <img src="{{ $post->user->imageUrl() }}" class="w-12 h-12 rounded-full" alt="{{ $post->user->name }}" />
-                        @endif
+                        <a href="{{ route('profile.show', $post->user) }}" class="cursor-pointer">
+                            <x-user-avatar :user="$post->user" />
+                        </a>
                         <!-- User info -->
                         <div class="">
                             <div class="flex gap-2 items-baseline">
-                                <h3 class="text-lg font-light text-gray-600">{{ $post->user->name }}</h3>
+                                <a href="{{ route('profile.show', $post->user) }}" class="cursor-pointer hover:underline text-lg font-light text-gray-600">{{ $post->user->name }}</a>
                                 &middot;
                                 <a href="#" class="text-blue-500 hover:underline">Follow</a>
                             </div>
                             <p class="text-sm text-gray-600">
                                 {{ $post->readTime() }} min read.
-                                Updated {{ $post->created_at->diffForHumans() }} by {{ $post->user->name }}
+                                Updated {{ $post->created_at->diffForHumans() }} by <a href="{{ route('profile.show', $post->user) }}" class="text-blue-500 hover:underline">{{ $post->user->name }}</a>
                             </p>
                         </div>
                     </div>

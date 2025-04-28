@@ -19,7 +19,7 @@
                 @endforelse
             </div>
 
-            @if($posts->hasMorePages())
+            @if($posts->hasPages())
                 {{ $posts->onEachSide(1)->links() }}
             @endif
 
