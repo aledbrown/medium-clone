@@ -39,7 +39,7 @@
                         <!-- Content -->
                         <div class="mt-4">
                             <x-input-label for="content" :value="__('Content')" />
-                            <x-input-textarea id="title" class="block mt-1 w-full" rows="10" type="text" name="content">
+                            <x-input-textarea id="content" class="block mt-1 w-full" rows="10" type="text" name="content">
                                 {{ old('content') }}
                             </x-input-textarea>
                             <x-input-error :messages="$errors->get('content')" class="mt-2" />

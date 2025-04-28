@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostCreateRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -30,21 +30,16 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+
         return view('post.create', ['categories' => $categories]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostCreateRequest $request)
     {
-        $data = $request->validate([
-            'image' => 'required|image|max:2048|mimes:jpg,jpeg,png',
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'published_at' => 'nullable|datetime',
-        ]);
+        $data = $request->validated();
 
         $data['user_id'] = auth()->id();
         $data['slug'] = Str::slug($data['title']);

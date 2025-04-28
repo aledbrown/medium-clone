@@ -6,14 +6,17 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
 
+        $name = 'Aled Brown';
         User::factory()->create([
-            'name' => 'Aled Brown',
+            'name' => $name,
+            'username' => Str::slug($name),
             'email' => 'aledb@mac.com',
         ]);
 
@@ -48,6 +51,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        Post::factory(100)->create();
+        // Post::factory(100)->create();
     }
 }
