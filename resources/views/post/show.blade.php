@@ -31,16 +31,23 @@
                     </div>
 
                     <!-- Clap Section -->
-                    <div>
-                    </div>
+                    <x-clap-button />
 
                     <!-- Content -->
-                    <div>
-                        <img src="{{ $post->imageUrl() }}" class="w-full h-96 object-cover" alt="Post Image" />
-                        <div class="prose mt-6">
-                            {!! $post->html !!}
+                    <div class="mt-4">
+                        <img src="{{ $post->imageUrl() }}" class="w-full object-cover" alt="{{ $post->title }}" />
+                        <div class="mt-6">
+                            {{ $post->content }}
                         </div>
                     </div>
+
+                    <!-- Category -->
+                    <div class="mt-8 ">
+                        <span class="px-4 py-2 text-black bg-gray-200 rounded-full">{{ $post->category->name }}</span>
+                    </div>
+
+                    <!-- Clap Section -->
+                    <x-clap-button />
 
                 </div>
             </div>
