@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use PhpParser\Node\Expr\Cast\Bool_;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -58,16 +57,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Post::class);
     }
 
-    public function following()
+    public function following(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
 
-    public function followers()
+    public function followers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
     }
 
+    public function claps(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'claps', 'user_id', 'post_id');
+    }
 
     // methods
     public function imageUrl(): ?string

@@ -48,7 +48,7 @@
                     </div>
 
                     <!-- Clap Section -->
-                    <x-clap-button />
+                    <x-clap-button :count="$post->claps()->count()" />
 
                 </div>
             </div>
