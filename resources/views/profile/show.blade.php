@@ -20,16 +20,34 @@
 
                     </div>
 
-                    <div class="order-first sm:order-none mb-8 sm:mb-0 sm:w-[320px] border-1 px-8">
+                    <div x-data="{
+                        following: {{ $user->isFollowedBy(auth()->user()) ? 'true':'false' }},
+                        follow() {
+                            axios.post('/follow/{{ $user->id }}')
+                                .then(res => {
+                                    this.following = !this.following
+                                    this.followersCount = res.data.followersCount
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                })
+                        }
+
+                    }" class="order-first sm:order-none mb-8 sm:mb-0 sm:w-[320px] border-1 px-8">
                         <x-user-avatar :user="$user" size="w-24 h-24" />
                         <h3 class="mt-4 text-lg font-medium text-gray-900">{{ $user->name }}</h3>
                         <p class="text-sm text-gray-500">{{ $user->followers()->count() }} {{ \Illuminate\Support\Str::plural($value = 'follower', $user->followers()->count()) }}</p>
                         <p class="mt-4 text-sm text-gray-500">{{ $user->bio }}</p>
-                        <div class="mt-4">
-                            <button class="block px-4 py-2 bg-emerald-800 rounded-full text-sm font-semibold text-white text-center hover:bg-black/80 transition">
-                                Follow
-                            </button>
-                        </div>
+                        @if(auth()->user() && auth()->user()->id !== $user->id)
+                            <div class="mt-4">
+                                <button
+                                    @click="follow()"
+                                    class="block px-4 py-2 rounded-full text-sm font-semibold text-white text-center hover:bg-black/80 transition"
+                                    x-text="following ? 'Unfollow': 'Follow'"
+                                    :class="following ? 'bg-red-600':'bg-emerald-800'"
+                                />
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
