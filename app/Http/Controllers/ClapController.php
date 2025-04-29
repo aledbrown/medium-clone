@@ -12,6 +12,7 @@ class ClapController extends Controller
 
         return response()->json([
             'clapsCount' => $post->claps()->count(),
+            'hasClapped' => auth()->user()->hasClapped($post),
         ]);
     }
 }
