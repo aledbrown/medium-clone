@@ -22,21 +22,24 @@
 
                     <div x-data="{
                         following: {{ $user->isFollowedBy(auth()->user()) ? 'true':'false' }},
+                        followersCount: {{ $user->followers()->count() }},
+                        followersText: '{{ \Illuminate\Support\Str::plural($value = 'follower', $user->followers()->count()) }}',
                         follow() {
                             axios.post('/follow/{{ $user->id }}')
                                 .then(res => {
                                     this.following = !this.following
                                     this.followersCount = res.data.followersCount
+                                    this.followersText = res.data.followersText
                                 })
                                 .catch(err => {
                                     console.log(err)
                                 })
                         }
-
                     }" class="order-first sm:order-none mb-8 sm:mb-0 sm:w-[320px] border-1 px-8">
                         <x-user-avatar :user="$user" size="w-24 h-24" />
                         <h3 class="mt-4 text-lg font-medium text-gray-900">{{ $user->name }}</h3>
-                        <p class="text-sm text-gray-500">{{ $user->followers()->count() }} {{ \Illuminate\Support\Str::plural($value = 'follower', $user->followers()->count()) }}</p>
+                        {{--<p class="text-sm text-gray-500">{{ $user->followers()->count() }} {{ \Illuminate\Support\Str::plural($value = 'follower', $user->followers()->count()) }}</p>--}}
+                        <p class="text-sm text-gray-500"><span x-text="followersCount"></span> <span x-text="followersText"></span></p>
                         <p class="mt-4 text-sm text-gray-500">{{ $user->bio }}</p>
                         @if(auth()->user() && auth()->user()->id !== $user->id)
                             <div class="mt-4">

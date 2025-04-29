@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class FollowerController extends Controller
 {
@@ -10,8 +11,11 @@ class FollowerController extends Controller
     {
         $user->followers()->toggle(auth()->user());
 
+        $followerCount = $user->followers()->count();
+
         return response()->json([
-            'followersCount' => $user->followers()->count(),
+            'followersCount' => $followerCount,
+            'followersText' => Str::plural($value = 'follower', $followerCount),
         ]);
     }
 }
