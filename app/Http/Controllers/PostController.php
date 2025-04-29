@@ -16,7 +16,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::query()
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->simplePaginate(10);
 
         return view('post.index', [
@@ -28,7 +28,7 @@ class PostController extends Controller
     {
         $posts = $category
             ->posts()
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->simplePaginate(10);
 
         return view('post.index', [
