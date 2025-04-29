@@ -15,10 +15,10 @@ Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name(
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('dashboard');
-    Route::resource('post', PostController::class)->except('index');
-});
 
-Route::middleware('auth')->group(function () {
+    Route::get('/category/{category:id}', [PostController::class, 'category'])->name('post.byCategory');
+
+    Route::resource('post', PostController::class)->except('index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

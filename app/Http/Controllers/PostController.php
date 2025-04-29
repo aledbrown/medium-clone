@@ -24,6 +24,19 @@ class PostController extends Controller
         ]);
     }
 
+    public function category(Category $category)
+    {
+        $posts = $category
+            ->posts()
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(10);
+
+        return view('post.index', [
+            'posts' => $posts,
+        ]);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
