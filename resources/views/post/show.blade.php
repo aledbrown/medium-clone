@@ -16,13 +16,15 @@
                         <div>
                             <x-follow-ctr :user="$post->user" class="flex gap-2 items-baseline">
                                 <a href="{{ route('profile.show', $post->user) }}" class="cursor-pointer hover:underline text-lg font-light text-gray-600">{{ $post->user->name }}</a>
-                                &middot;
-                                <button
+                                @if(auth()->user() && auth()->user()->id !== $post->user_id)
+                                    &middot;
+                                    <button
                                     @click="follow()"
                                     class="hover:underline font-bold"
                                     x-text="following ? 'Unfollow': 'Follow'"
                                     :class="following ? 'text-red-600':'text-emerald-600'"
                                 />
+                                @endif
                             </x-follow-ctr>
                             <p class="text-sm text-gray-600">
                                 {{ $post->readTime() }} min read.
