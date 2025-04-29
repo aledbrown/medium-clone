@@ -1,6 +1,6 @@
 @props(['user'])
 
-<div x-data="{
+<div {{ $attributes->merge(['class' => '']) }} x-data="{
                 following: {{ $user->isFollowedBy(auth()->user()) ? 'true':'false' }},
                 followersCount: {{ $user->followers()->count() }},
                 followersText: '{{ \Illuminate\Support\Str::plural($value = 'follower', $user->followers()->count()) }}',
@@ -15,6 +15,6 @@
                             console.log(err)
                         })
                 }
-            }" class="order-first sm:order-none mb-8 sm:mb-0 sm:w-[320px] border-1 px-8">
+            }">
     {{ $slot }}
 </div>

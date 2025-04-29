@@ -13,12 +13,17 @@
                             <x-user-avatar :user="$post->user" />
                         </a>
                         <!-- User info -->
-                        <div class="">
-                            <div class="flex gap-2 items-baseline">
+                        <div>
+                            <x-follow-ctr :user="$post->user" class="flex gap-2 items-baseline">
                                 <a href="{{ route('profile.show', $post->user) }}" class="cursor-pointer hover:underline text-lg font-light text-gray-600">{{ $post->user->name }}</a>
                                 &middot;
-                                <a href="#" class="text-blue-500 hover:underline">Follow</a>
-                            </div>
+                                <button
+                                    @click="follow()"
+                                    class="hover:underline font-bold"
+                                    x-text="following ? 'Unfollow': 'Follow'"
+                                    :class="following ? 'text-red-600':'text-emerald-600'"
+                                />
+                            </x-follow-ctr>
                             <p class="text-sm text-gray-600">
                                 {{ $post->readTime() }} min read.
                                 Updated {{ $post->created_at->diffForHumans() }} by <a href="{{ route('profile.show', $post->user) }}" class="text-blue-500 hover:underline">{{ $post->user->name }}</a>

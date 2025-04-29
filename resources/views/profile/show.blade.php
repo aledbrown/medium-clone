@@ -20,21 +20,23 @@
 
                     </div>
                     <x-follow-ctr :user="$user">
-                        <x-user-avatar :user="$user" size="w-24 h-24" />
-                        <h3 class="mt-4 text-lg font-medium text-gray-900">{{ $user->name }}</h3>
-                        {{--<p class="text-sm text-gray-500">{{ $user->followers()->count() }} {{ \Illuminate\Support\Str::plural($value = 'follower', $user->followers()->count()) }}</p>--}}
-                        <p class="text-sm text-gray-500"><span x-text="followersCount"></span> <span x-text="followersText"></span></p>
-                        <p class="mt-4 text-sm text-gray-500">{{ $user->bio }}</p>
-                        @if(auth()->user() && auth()->user()->id !== $user->id)
-                            <div class="mt-4">
-                                <button
-                                    @click="follow()"
-                                    class="block px-4 py-2 rounded-full text-sm font-semibold text-white text-center hover:bg-black/80 transition"
-                                    x-text="following ? 'Unfollow': 'Follow'"
-                                    :class="following ? 'bg-red-600':'bg-emerald-800'"
-                                />
-                            </div>
-                        @endif
+                        <div class="order-first sm:order-none mb-8 sm:mb-0 sm:w-[320px] border-1 px-8">
+                            <x-user-avatar :user="$user" size="w-24 h-24" class="order-first sm:order-none mb-8 sm:mb-0 sm:w-[320px] border-1 px-8" />
+                            <h3 class="mt-4 text-lg font-medium text-gray-900">{{ $user->name }}</h3>
+                            {{--<p class="text-sm text-gray-500">{{ $user->followers()->count() }} {{ \Illuminate\Support\Str::plural($value = 'follower', $user->followers()->count()) }}</p>--}}
+                            <p class="text-sm text-gray-500"><span x-text="followersCount"></span> <span x-text="followersText"></span></p>
+                            <p class="mt-4 text-sm text-gray-500">{{ $user->bio }}</p>
+                            @if(auth()->user() && auth()->user()->id !== $user->id)
+                                <div class="mt-4">
+                                    <button
+                                        @click="follow()"
+                                        class="block px-4 py-2 rounded-full text-sm font-semibold text-white text-center hover:bg-black/80 transition"
+                                        x-text="following ? 'Unfollow': 'Follow'"
+                                        :class="following ? 'bg-red-600':'bg-emerald-800'"
+                                    />
+                                </div>
+                            @endif
+                        </div>
                     </x-follow-ctr>
                 </div>
             </div>
