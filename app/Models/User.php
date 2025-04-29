@@ -82,8 +82,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return null;
     }
 
-    public function isFollowedBy(User $user): bool
+    public function isFollowedBy(?User $user): bool
     {
+        if (!$user) {
+            return false;
+        }
+
         return $this->followers()->where('follower_id', $user->id)->exists();
     }
 

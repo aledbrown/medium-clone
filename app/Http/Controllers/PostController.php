@@ -15,9 +15,17 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::query()
-            ->latest()
-            ->simplePaginate(10);
+        $user = auth()->user();
+
+        $query = Post::latest();
+
+        if ($user) {
+            $ids = $user->following()->pluck('users.id'); // get ids of users you are following
+            $ids->push($user->id); // add user's own posts
+            $query->whereIn('user_id', $ids);
+        }
+
+        $posts = $query->simplePaginate(10);
 
         return view('post.index', [
             'posts' => $posts,
