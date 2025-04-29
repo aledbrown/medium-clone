@@ -8,6 +8,12 @@ https://www.freecodecamp.org/news/learn-laravel-by-building-a-medium-clone/
 
 > Choose: Blade with Alpine
 
+> https://spatie.be/docs/laravel-medialibrary/v11/introduction 
+
+> composer require "spatie/laravel-medialibrary"
+
+> php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
+
 # other
 > php artisan migrate:fresh --seed
 
