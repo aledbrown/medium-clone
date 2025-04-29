@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClapController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -23,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('post.show');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow');
+    Route::post('/clap/{post}', [ClapController::class, 'clap'])->name('clap');
 });
 
 require __DIR__.'/auth.php';
