@@ -17,7 +17,7 @@
         @csrf
         @method('patch')
 
-        @if($user->getFirstMedia('avatar'))
+        @if($user->imageUrl('avatar'))
             <div class="flex items-center">
                 <x-user-avatar :user="$user" size="w-20 h-20" />
                 {{--<img src="{{ $user->imageUrl('avatar') }}" alt="Profile Photo" class="w-20 h-20 rounded-full object-cover">--}}
