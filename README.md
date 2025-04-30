@@ -1,5 +1,6 @@
 ### Medium Clone
 https://www.freecodecamp.org/news/learn-laravel-by-building-a-medium-clone/
+https://github.com/thecodeholic/laravel-medium-clone
 
 # installs
 > composer require laravel/breeze
