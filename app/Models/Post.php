@@ -15,8 +15,8 @@ use Spatie\Sluggable\SlugOptions;
 class Post extends Model implements HasMedia
 {
     use HasFactory;
-    use InteractsWithMedia;
     use HasSlug;
+    use InteractsWithMedia;
 
     protected $fillable = [
         // 'image',
@@ -25,7 +25,15 @@ class Post extends Model implements HasMedia
         'content',
         'category_id',
         'user_id',
-        'published_at'];
+        'published_at',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'published_at' => 'datetime',
+        ];
+    }
 
     public function registerMediaConversions(?Media $media = null): void
     {
@@ -90,5 +98,4 @@ class Post extends Model implements HasMedia
 
         return $media->getUrl();
     }
-
 }

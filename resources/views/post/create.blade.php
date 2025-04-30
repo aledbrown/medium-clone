@@ -45,6 +45,12 @@
                             <x-input-error :messages="$errors->get('content')" class="mt-2" />
                         </div>
 
+                        <!-- Published At -->
+                        <div class="mt-4">
+                            <x-input-label for="published_at" :value="__('Published at')" />
+                            <x-text-input id="published_at" class="block mt-1 w-full" type="datetime-local" name="published_at" :value="old('published_at')" />
+                            <x-input-error :messages="$errors->get('published_at')" class="mt-2" />
+                        </div>
 
                         <div class="flex items-center justify-end mt-4">
                             <x-primary-button class="ms-3">
