@@ -4,7 +4,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                 <div class="p-4 text-gray-900">
-                    <h1 class="text-5xl font-bold">{{ $post->title }}</h1>
+                    <h1 class="text-4xl font-bold">{{ $post->title }}</h1>
 
                     <!-- User info -->
                     <div class="flex gap-4 items-center mt-8">
@@ -18,7 +18,7 @@
                                 <a href="{{ route('profile.show', $post->user) }}" class="cursor-pointer hover:underline text-lg font-light text-gray-600">{{ $post->user->name }}</a>
                                 @if(auth()->user() && auth()->user()->id !== $post->user_id)
                                     &middot;
-                                    <button
+                                <button
                                     @click="follow()"
                                     class="hover:underline font-bold"
                                     x-text="following ? 'Unfollow': 'Follow'"
@@ -32,6 +32,19 @@
                             </p>
                         </div>
                     </div>
+
+                    <div class="mt-4 pt-4 border-t flex gap-4">
+                        <a href="#"><x-primary-button>Edit Post</x-primary-button></a>
+                        @if(auth()->user()->can('delete', $post))
+                            ALLOWED TO DELETE
+                        @endif
+                        <form class="inline-block" action="{{ route('post.destroy', $post) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <x-danger-button>Delete Post</x-danger-button>
+                        </form>
+                    </div>
+
 
                     <!-- Clap Section -->
                     <x-clap-button :post="$post" />

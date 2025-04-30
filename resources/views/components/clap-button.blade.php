@@ -16,7 +16,7 @@
                 })
         },
     }"
-        class="border-t border-b mt-8 p-4">
+        class="border-t border-b mt-4 p-4">
         <button @click="clap()" class="flex gap-2 text-gray-500 hover:text-gray-900">
             <template x-if="!hasClapped">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" :class="hasClapped ? 'hidden':'block'">

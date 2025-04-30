@@ -120,6 +120,14 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        // if (! auth()->user()->can('delete', $post)) {
+        //     abort(403);
+        // }
+        if ($post->user_id !== auth()->id()) {
+            abort(403);
+        }
+        $post->delete();
+
+        return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
     }
 }
