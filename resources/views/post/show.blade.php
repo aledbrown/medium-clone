@@ -34,15 +34,16 @@
                     </div>
 
                     <div class="mt-4 pt-4 border-t flex gap-4">
-                        <a href="#"><x-primary-button>Edit Post</x-primary-button></a>
-                        @if(auth()->user()->can('delete', $post))
-                            ALLOWED TO DELETE
-                        @endif
-                        <form class="inline-block" action="{{ route('post.destroy', $post) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <x-danger-button>Delete Post</x-danger-button>
-                        </form>
+                        @can('update', $post)
+                            <a href="{{ route('post.edit', $post) }}"><x-primary-button>Edit Post</x-primary-button></a>
+                        @endcan
+                        @can('delete', $post)
+                            <form class="inline-block" action="{{ route('post.destroy', $post) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <x-danger-button>Delete Post</x-danger-button>
+                            </form>
+                        @endcan
                     </div>
 
 

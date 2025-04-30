@@ -104,7 +104,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        if (! auth()->user()->can('update', $post)) {
+            abort(403);
+        }
+        return view('post.edit', ['post' => $post]);
     }
 
     /**
@@ -112,7 +115,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        if (! auth()->user()->can('update', $post)) {
+            abort(403);
+        }
     }
 
     /**
@@ -120,10 +125,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        // if (! auth()->user()->can('delete', $post)) {
-        //     abort(403);
-        // }
-        if ($post->user_id !== auth()->id()) {
+        if (! auth()->user()->can('delete', $post)) {
             abort(403);
         }
         $post->delete();

@@ -2,10 +2,10 @@
     <div class="py-4">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('post.up') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="p-6 text-gray-900">
-                        <h1 class="text-3xl font-bold">Create new post</h1>
+                        <h1 class="text-3xl font-bold">Edit post</h1>
 
                         <!-- Category -->
                         <div class="mt-4">
