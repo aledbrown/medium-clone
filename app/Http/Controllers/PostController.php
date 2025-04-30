@@ -44,6 +44,19 @@ class PostController extends Controller
         ]);
     }
 
+    public function myPosts()
+    {
+        $user = auth()->user();
+
+        $posts = $user->posts()->with(['user', 'media'])->withCount('claps')
+            ->latest()
+            ->simplePaginate(10);
+
+        return view('post.index', [
+            'posts' => $posts,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
