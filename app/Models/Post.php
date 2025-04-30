@@ -5,14 +5,34 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
 
-    protected $fillable = ['image', 'title', 'slug', 'content', 'category_id', 'user_id', 'published_at'];
+    protected $fillable = [
+        // 'image',
+        'title',
+        'slug',
+        'content',
+        'category_id',
+        'user_id',
+        'published_at'];
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('preview')
+            ->width(400);
+        // ->nonQueued(); // for instant generation
+
+        $this->addMediaConversion('large')
+            ->width(1200);
+    }
 
     public function user(): BelongsTo
     {
@@ -29,7 +49,6 @@ class Post extends Model
         return $this->hasMany(Clap::class);
     }
 
-
     // methods
 
     public function readTime($wordsPerMinute = 100): int
@@ -40,12 +59,20 @@ class Post extends Model
         return max(1, $minutes);
     }
 
-    public function imageUrl(): ?string
+    public function imageUrl($conversionName = ''): ?string
     {
-        if ($this->image) {
-            return asset('storage/'.$this->image);
+        $media = $this->getFirstMedia();
+        if (! $media) {
+            if ($this->image) {
+                return asset('storage/'.$this->image);
+            }
+
+            return null;
+        }
+        if ($media->hasGeneratedConversion($conversionName)) {
+            return $media->getUrl($conversionName);
         }
 
-        return null;
+        return $media->getUrl();
     }
 }

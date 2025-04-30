@@ -14,6 +14,11 @@ https://www.freecodecamp.org/news/learn-laravel-by-building-a-medium-clone/
 
 > php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
 
+# Image queue
+> php artisan queue:listen (on dev)
+> php artisan queue:work (on production?)
+> php artisan media-library:regenerate
+
 # other
 > php artisan migrate:fresh --seed
 

@@ -38,7 +38,7 @@
 
                     <!-- Content -->
                     <div class="mt-4">
-                        <img src="{{ $post->imageUrl() }}" class="w-full object-cover" alt="{{ $post->title }}" />
+                        <img src="{{ $post->imageUrl('large') }}" class="w-full object-cover" alt="{{ $post->title }}" />
                         <div class="mt-6">
                             {{ $post->content }}
                         </div>

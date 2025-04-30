@@ -21,6 +21,7 @@
         </a>
     </div>
     <a href="#" class="">
-        <img class="rounded-r-lg w-48 h-full object-cover" src="{{ asset('storage/'.$post->image) }}" alt="" />
+        {{--<img class="rounded-r-lg w-48 h-full object-cover" src="{{ asset('storage/'.$post->image) }}" alt="" />--}}
+        <img class="rounded-r-lg w-48 h-full object-cover" src="{{ $post->imageUrl('preview') }}" alt="" />
     </a>
 </div>

@@ -44,7 +44,6 @@ class PostController extends Controller
         ]);
     }
 
-
     /**
      * Show the form for creating a new resource.
      */
@@ -65,12 +64,16 @@ class PostController extends Controller
         $data['user_id'] = auth()->id();
         $data['slug'] = Str::slug($data['title']);
 
-        $image = $data['image'];
-        unset($data['image']);
-        $imagePath = $image->store('posts', 'public');
-        $data['image'] = $imagePath;
+        // Original Image Saving
+        // $image = $data['image'];
+        // unset($data['image']);
+        // $imagePath = $image->store('posts', 'public');
+        // $data['image'] = $imagePath;
 
-        Post::create($data);
+        $post = Post::create($data);
+
+        // New Image Saving
+        $post->addMediaFromRequest('image')->toMediaCollection();
 
         return redirect()->route('dashboard')->with('success', 'Post created successfully.');
     }
