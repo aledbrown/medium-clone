@@ -61,7 +61,7 @@ class Post extends Model implements HasMedia
 
     public function imageUrl($conversionName = ''): ?string
     {
-        $media = $this->getFirstMedia($conversionName);
+        $media = $this->getFirstMedia();
         if (! $media) {
             if ($this->image) {
                 return asset('storage/'.$this->image);
