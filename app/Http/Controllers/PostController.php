@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostCreateRequest;
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -107,17 +106,30 @@ class PostController extends Controller
         if (! auth()->user()->can('update', $post)) {
             abort(403);
         }
-        return view('post.edit', ['post' => $post]);
+
+        $categories = Category::all();
+        return view('post.edit', ['post' => $post, 'categories' => $categories]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PostCreateRequest $request, Post $post)
     {
         if (! auth()->user()->can('update', $post)) {
             abort(403);
         }
+
+        $data = $request->validated();
+
+        $post->update($data);
+
+        if ($request->hasFile('image')) {
+            $post->addMediaFromRequest('image')->toMediaCollection();
+        }
+
+        $categories = Category::all();
+        return view('post.show', ['post' => $post, 'categories' => $categories]);
     }
 
     /**
