@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Str;
@@ -114,7 +115,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PostCreateRequest $request, Post $post)
+    public function update(PostUpdateRequest $request, Post $post)
     {
         if (! auth()->user()->can('update', $post)) {
             abort(403);
