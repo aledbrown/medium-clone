@@ -21,11 +21,11 @@ class PostController extends Controller
             ->where('published_at', '<=', now())
             ->latest();
 
-        if ($user) {
-            $ids = $user->following()->pluck('users.id'); // get ids of users you are following
-            $ids->push($user->id); // add user's own posts
-            $query->whereIn('user_id', $ids);
-        }
+        // if ($user) {
+        //     $ids = $user->following()->pluck('users.id'); // get ids of users you are following
+        //     $ids->push($user->id); // add user's own posts
+        //     $query->whereIn('user_id', $ids);
+        // }
 
         $posts = $query->simplePaginate(10);
 
@@ -43,11 +43,11 @@ class PostController extends Controller
             ->where('published_at', '<=', now())
             ->latest();
 
-        if ($user) {
-            $ids = $user->following()->pluck('users.id'); // get ids of users you are following
-            $ids->push($user->id); // add user's own posts
-            $query->whereIn('user_id', $ids);
-        }
+        // if ($user) {
+        //     $ids = $user->following()->pluck('users.id'); // get ids of users you are following
+        //     $ids->push($user->id); // add user's own posts
+        //     $query->whereIn('user_id', $ids);
+        // }
 
         $posts = $query->simplePaginate(10);
 
