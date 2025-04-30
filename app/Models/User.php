@@ -9,11 +9,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, InteractsWithMedia, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +55,20 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('avatar')
+            ->width(256)
+            ->crop(256, 256);
+        // ->nonQueued(); // for instant generation
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('avatar')
+            ->singleFile();
+    }
+
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
@@ -73,18 +90,26 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     // methods
-    public function imageUrl(): ?string
+    public function imageUrl($conversionName = ''): ?string
     {
-        if ($this->image) {
-            return asset('storage/'.$this->image);
+        $media = $this->getFirstMedia($conversionName);
+        if (! $media) {
+            if ($this->image) {
+                return asset('storage/'.$this->image);
+            }
+
+            return null;
+        }
+        if ($media->hasGeneratedConversion($conversionName)) {
+            return $media->getUrl($conversionName);
         }
 
-        return null;
+        return $media->getUrl();
     }
 
     public function isFollowedBy(?User $user): bool
     {
-        if (!$user) {
+        if (! $user) {
             return false;
         }
 
