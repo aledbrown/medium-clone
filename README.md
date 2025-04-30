@@ -14,6 +14,8 @@ https://www.freecodecamp.org/news/learn-laravel-by-building-a-medium-clone/
 
 > php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
 
+> composer require spatie/laravel-sluggable
+
 # Image queue
 > php artisan queue:listen (on dev)
 > php artisan queue:work (on production?)

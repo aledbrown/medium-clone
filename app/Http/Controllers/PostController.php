@@ -74,7 +74,7 @@ class PostController extends Controller
         $data = $request->validated();
 
         $data['user_id'] = auth()->id();
-        $data['slug'] = Str::slug($data['title']);
+        // $data['slug'] = Str::slug($data['title']); // see sluggable package
 
         // Original Image Saving
         // $image = $data['image'];
@@ -124,12 +124,15 @@ class PostController extends Controller
 
         $post->update($data);
 
-        if ($request->hasFile('image')) {
+        // if ($request->hasFile('image')) {
+        if ($data['image'] ?? false) {
             $post->addMediaFromRequest('image')->toMediaCollection();
         }
 
-        $categories = Category::all();
-        return view('post.show', ['post' => $post, 'categories' => $categories]);
+        return redirect()->route('myPosts');
+
+        // $categories = Category::all();
+        // return view('post.show', ['post' => $post, 'categories' => $categories]);
     }
 
     /**

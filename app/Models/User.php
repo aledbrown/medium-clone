@@ -65,8 +65,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('avatar')
-            ->singleFile();
+        $this->addMediaCollection('avatar')->singleFile();
     }
 
     public function posts(): HasMany
